@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+ .nav {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #D9DADB;
+}
+.sections label {
+    margin: 0 25px 0 15px;
+}
+.sections {
+    height: 50px;
+    border-right: 1px solid #D9DADB;
+    display: flex;
+    align-items: center;
+}
+.search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.search input {
+    height: 20px;
+    width: 100%;
+    border: 0;
+}
+.search img {
+    margin: 0 10px 0 25px;
+}
+.sign button {
+    border: 0;
+    margin: 0 10px 0 25px;
+    background: none;    
+}
+.sign label {
+    width: 50px;
+}
+.sign {
+    display: flex;
+    align-items: center;
+}
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.main {
+    display: flex;
+    align-items: center;
+    height: 84px;
+    justify-content: space-between;
+    position: relative;
+}
+.main div {
+    display: flex;
+    align-items: center;
+}
+.temp img {
+    margin-right: 10px;
+}
+.date {
+    margin-right: 23px;
+}
+.links,
+.n_nav {
+    height: 55px;
+    background-color: #262D33;
+}
+.container.links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.container.links li {
+    list-style-type: none;
+}
+.container.links a {
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+}
+input[type='file'] {
+    color: transparent;
+    width: 115px;
+}
+.news {
+    display: flex;
+    align-items: center; 
+}
+.newsTitle {
+    margin: 0 10px 0;
+} 
+
+
+/* ONE NEW PAGE */
+.page_img,
+.page_img img {
+    height: 200px;
+    width: auto;
+}
+.one_new {
+    width: 300px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Admin */
+.col_1 ul li {
+    list-style-type: none;
+}
+.col_1 ul li a {
+    text-decoration: none;
+    color: #000;
+}
+.main_h1 {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 40px;
+}

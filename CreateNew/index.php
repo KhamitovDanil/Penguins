@@ -35,6 +35,7 @@ $news = mysqli_query($con, $query_news);
             $new_id = $new["news_id"];
             echo "<div class='c_img'><img src='images/news/" . $new['image'] . "' alt=''></div>";
             echo "<h2 class='c_title'>" . $new['title'] . "</h2>";
+            echo "<a href='oneNew.php?new=" . $new["news_id"] . "'>" . $new['title'] . "</a></div>";
         }
         ?>
     </div>

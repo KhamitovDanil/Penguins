@@ -1,6 +1,7 @@
 <?php
 include "../connect.php";
 include "../header.php";
+$categories = mysqli_fetch_all(mysqli_query($con, "SELECT * FROM Categories"));
 
 $news = mysqli_fetch_all(mysqli_query($con, "SELECT news_id, title FROM News"));
 $id_new = isset($_GET["new"])?$_GET["new"]:false;

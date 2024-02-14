@@ -6,11 +6,12 @@
     <div class="links">
         <ul class="container links">
         <?php
+            $sort = isset($_GET["sort"])?$_GET["sort"]:"";
             require "connect.php";
             $items = mysqli_query($con, "SELECT * FROM Categories");
             $all = mysqli_fetch_all($items);
             foreach ($all as $elem) {
-                echo "<li><a href='/?category=$elem[0]' >" . $elem[1] . "</a></li>";
+                echo "<li><a href='?category=$elem[0]&sort=$sort' >" . $elem[1] . "</a></li>";
             }
         ?>
         </ul>

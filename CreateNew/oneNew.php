@@ -22,7 +22,8 @@ $new_info = mysqli_fetch_assoc(mysqli_query($con, $query_getNew));
     <div class="n_title">
         <div class="container d-flex justify-content-center">
             <?php
-                $month = ['01' => 'Января' , '02' => 'Февраля' , '03' => 'Марта' , '04' => 'Апреля' , '05' => 'Мая' , '06' => 'Июня' , '07' => 'Июля' , '08' => 'Августа' , '09' => 'Сентября' , '10' => 'Октября' , '11' => 'Ноября' , '12' => 'Декабря'];
+                $month = ['01' => 'Января' , '02' => 'Февраля' , '03' => 'Марта' , '04' => 'Апреля' , '05' => 'Мая' , '06' => 'Июня' , 
+                '07' => 'Июля' , '08' => 'Августа' , '09' => 'Сентября' , '10' => 'Октября' , '11' => 'Ноября' , '12' => 'Декабря'];
                 $date = date("d.m.Y H:i:s", strtotime($new_info['publish_date']));
                 $m_text = $month[substr($date, 3, 2)];
                 $publish_date = substr($date, 0, 2) . " " . $m_text . " " . substr($date, 6);

@@ -12,7 +12,7 @@
 <? require_once "header.php"; ?>
 
 <div class="container mt-4">
-<h1>Форма регистрации</h1>
+<h1>Форма авторизации</h1>
 <form action="auth-db.php" method="post">
 	<input type="text" name="login" class="form-control" id="login" placeholder="Логин" required><br>
 	<input type="password" name="pass" class="form-control" id="pass" placeholder="Пароль" required><br>

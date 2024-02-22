@@ -24,9 +24,15 @@ require_once "header.php";
 $category = isset($_GET["category"])?$_GET["category"]:false;
 $sort = isset($_GET['sort'])?$_GET['sort']:false;
 $query_news = "SELECT * FROM News ";
+$search = isset($_GET["search"])?$_GET["search"]:false;
 
 if ($category) {
     $query_news .= "WHERE category_id = $category ";
+}
+if ($category and $search) {
+    $query_news .= "AND title LIKE '%$search%' ";
+} else if ($search) {
+    $query_news .= "WHERE title LIKE '%$search%' ";
 }
 if ($sort and $sort != "") {
     $query_news .= "ORDER BY $sort";
@@ -34,7 +40,6 @@ if ($sort and $sort != "") {
 echo $query_news;
 $news = mysqli_query($con, $query_news);
 ?>
-
 
 <section class="last-news">
     <div class="container d-flex flex-wrap">
@@ -44,6 +49,7 @@ $news = mysqli_query($con, $query_news);
                 <option value="publish_date ASC" <?= ($sort and $sort == "publish_date ASC")?"selected":""?>>Дата публикации | ASC</option>
                 <option value="publish_date DESC" <?= ($sort and $sort == "publish_date DESC")?"selected":""?>>Дата публикации | DESC</option>
                 <input type="hidden" name="category" value="<?= isset($_GET["category"])?$_GET["category"]:""; ?>">
+                <input type="hidden" name="search" value="<?= isset($_GET["search"])?$_GET["search"]:""; ?>">
             </select>
         </form>
     </div>
@@ -64,7 +70,6 @@ $news = mysqli_query($con, $query_news);
         ?>
     </div>
 </section>
-
 
 <script>
     $("#sort-select").change(function() {

@@ -19,12 +19,19 @@ require "connect.php";
     </style>
 </head>
 <body>
+
+
+
 <?php
 require_once "header.php";
 $category = isset($_GET["category"])?$_GET["category"]:false;
 $sort = isset($_GET['sort'])?$_GET['sort']:false;
-$query_news = "SELECT * FROM News ";
 $search = isset($_GET["search"])?$_GET["search"]:false;
+$page = isset($_GET["page"])?$_GET["page"]:1; // значение текущей страницы
+$query_news = "SELECT * FROM News ";
+
+$paginate_count = 2; // число новостей на одной странице
+$offset = $page * $paginate_count - $paginate_count; // смещение
 
 if ($category) {
     $query_news .= "WHERE category_id = $category ";
@@ -35,10 +42,16 @@ if ($category and $search) {
     $query_news .= "WHERE title LIKE '%$search%' ";
 }
 if ($sort and $sort != "") {
-    $query_news .= "ORDER BY $sort";
+    $query_news .= "ORDER BY $sort ";
 }
-echo $query_news;
+
+$count_news = mysqli_num_rows(mysqli_query($con, $query_news)); // общее число новостей
+$query_news .= "LIMIT $paginate_count OFFSET $offset ";
+
+echo "<div class='container'>$query_news</div>";
+
 $news = mysqli_query($con, $query_news);
+
 ?>
 
 <section class="last-news">
@@ -48,8 +61,13 @@ $news = mysqli_query($con, $query_news);
             <select id="sort-select" class="form-select" aria-label="Default select example" name="sort">
                 <option value="publish_date ASC" <?= ($sort and $sort == "publish_date ASC")?"selected":""?>>Дата публикации | ASC</option>
                 <option value="publish_date DESC" <?= ($sort and $sort == "publish_date DESC")?"selected":""?>>Дата публикации | DESC</option>
-                <input type="hidden" name="category" value="<?= isset($_GET["category"])?$_GET["category"]:""; ?>">
-                <input type="hidden" name="search" value="<?= isset($_GET["search"])?$_GET["search"]:""; ?>">
+                <? if (isset($_GET["category"])) { ?>
+                <input type="hidden" name="category" value="<?= $_GET["category"] ?>">
+                <? } ?>
+                <? if (isset($_GET["search"])) { ?>
+                <input type="hidden" name="search" value="<?= $_GET["search"] ?>">
+                <? } ?>
+                <input type="hidden" name="page" value="<?= $page ?>">
             </select>
         </form>
     </div>
@@ -62,14 +80,43 @@ $news = mysqli_query($con, $query_news);
         foreach ($news as $new) {
             echo "<div class='card'>";
             $new_id = $new["news_id"];
-            echo "<div>" . $new['publish_date'] . "</div>";
+            echo "<div>$new_id</div>";
             echo "<div class='c_img'><img src='images/news/" . $new['image'] . "' alt=''></div>";
             echo "<h2 class='c_title'>" . $new['title'] . "</h2>";
             echo "<a href='oneNew.php?new=" . $new["news_id"] . "'>" . $new['title'] . "</a></div>";
         }
         ?>
     </div>
+    <br>
+    <div class="container d-flex flex-wrap">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+
+                <?php for ($i = 1; $i <= ceil($count_news / $paginate_count); $i++) { ?>
+                    <li class="page-item"><a class="page-link" href="?page=<?=$i;?>
+                    <?php if ($sort) echo "&sort=".$sort;
+                        if ($category) echo "&category=". $category;
+                        if ($search) echo "&search=". $search;?>
+                        "><?=$i?></a></li>
+                <?php } ?>
+
+                <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </section>
+
+
+
 
 <script>
     $("#sort-select").change(function() {
